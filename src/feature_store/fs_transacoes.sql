@@ -6,7 +6,7 @@ WITH tb_transacao AS (
     SELECT t1.IdCliente,
             t1.IdTransacao,
             t1.DtCriacao - INTERVAL 3 HOUR AS dtTransacao
-    FROM silver.upsell.transacoes as t1
+    FROM silver.upsell.transacoes AS t1
     WHERE t1.DtCriacao - INTERVAL 3 HOUR < '{dt_ref}'
 ),
 
@@ -29,16 +29,22 @@ tb_produtos AS (
     -- Deixar os dados dessa forma pode deixar o modelo meio bobo, é melhor normalizar os dados
     -- Comparar o perfil de compra das pessoas
     SELECT t1.IdCliente,
-            round(count(CASE WHEN t3.descNomeProduto = 'Airflow Lover' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctAirflowLover,
-            round(count(CASE WHEN t3.descNomeProduto = 'ChatMessage' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctChatMessage,
-            round(count(CASE WHEN t3.descNomeProduto = 'Churn_10pp' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctChurn10pp,
-            round(count(CASE WHEN t3.descNomeProduto = 'Churn_2pp' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctChurn2pp,
-            round(count(CASE WHEN t3.descNomeProduto = 'Churn_5pp' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctChurn5pp,
-            round(count(CASE WHEN t3.descNomeProduto = 'Lista de presença' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctListaDePresenca,
-            round(count(CASE WHEN t3.descNomeProduto = 'Presença Streak' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctPresencaStreak,
-            round(count(CASE WHEN t3.descNomeProduto = 'R Lover' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctRLover,
-            round(count(CASE WHEN t3.descNomeProduto = 'Resgatar Ponei' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctResgatarPonei,
-            round(count(CASE WHEN t3.descNomeProduto = 'Troca de Pontos StreamElements' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctTrocaDePontosStreamElements
+        round(count(CASE WHEN t3.descNomeProduto = 'espada' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctEspada,
+        round(count(CASE WHEN t3.descNomeProduto = 'armadura' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctArmadura,
+        round(count(CASE WHEN t3.descNomeProduto = 'botas' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctBotas,
+        round(count(CASE WHEN t3.descNomeProduto = 'cajado' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctCajado,
+        round(count(CASE WHEN t3.descNomeProduto = 'chapeu' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctChapeu,
+        round(count(CASE WHEN t3.descNomeProduto = 'adaga' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctAdaga,
+        round(count(CASE WHEN t3.descNomeProduto = 'lovers' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctLovers,
+        round(count(CASE WHEN t3.descNomeProduto = 'rpg' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctRpg,
+        round(count(CASE WHEN t3.descNomeProduto = 'present' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctPresent,
+        round(count(CASE WHEN t3.descNomeProduto = 'streamelements' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctStreamelements,
+        round(count(CASE WHEN t3.descNomeProduto = 'ponei' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctPonei,
+        round(count(CASE WHEN t3.descNomeProduto = 'food' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctFood,
+        round(count(CASE WHEN t3.descNomeProduto = 'chat' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctChat,
+        round(count(CASE WHEN t3.descNomeProduto = 'churn_model' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctChurnModel,
+        round(count(CASE WHEN t3.descNomeProduto = 'fiel' THEN t3.descNomeProduto END) / count(DISTINCT t1.IdTransacao), 4) AS nrPctFiel
+
     FROM tb_transacao AS t1
 
     LEFT JOIN silver.upsell.transacao_produto AS t2
