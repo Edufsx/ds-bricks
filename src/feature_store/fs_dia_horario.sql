@@ -65,12 +65,12 @@ tb_tempo AS (
         GROUP BY IdCliente
 )
 SELECT '{dt_ref}' AS dtRef,
+        t1.*,
         dayofweek(date('{dt_ref}')) AS nrDiaSemana,
         dayofmonth(date('{dt_ref}')) AS nrDiaMes,
         weekofyear(date('{dt_ref}')) AS nrSemanaAno,
         month('{dt_ref}')  AS nrMes,
         year('{dt_ref}')  AS nrAno,
-        t1.*,
         t2.nrQtdeMinutos,
         t2.nrAvgMinutos,
         t2.nrAvgMinutoSemana,
