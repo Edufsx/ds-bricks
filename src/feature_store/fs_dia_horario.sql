@@ -23,8 +23,8 @@ WITH tb_transacao AS (
     LEFT JOIN silver.upsell.produtos AS t3
     ON t2.IdProduto = t3.IdProduto
 
-    WHERE dtCriacao < '{dt_ref}'
-    AND dtCriacao >= '{dt_ref}' - INTERVAL 28 DAY
+    WHERE DtCriacao - INTERVAL 3 HOUR < '{dt_ref}'
+    AND DtCriacao - INTERVAL 3 HOUR >= '{dt_ref}' - INTERVAL 28 DAY
 ),
 tb_horario AS (
         SELECT IdCliente,
